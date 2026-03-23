@@ -1,115 +1,89 @@
-const canvas = document.getElementById("canvas");
+document.addEventListener("DOMContentLoaded", () => {
+const canvas = document.getElementById("canvasBounce");
 let ctx = canvas.getContext("2d");
 
-// Dimensiones
-const window_height = window.innerHeight / 2;
-const window_width = window.innerWidth / 2;
+canvas.width = 300;
+canvas.height = 300;
+canvas.style.background = "#faf5ff";
 
-canvas.height = window_height;
-canvas.width = window_width;
-canvas.style.background = "#ff8";
-
-// Función para color aleatorio
-function randomColor() {
-    return `hsl(${Math.random() * 360}, 100%, 50%)`;
-}
-
-class Circle {
-    constructor(x, y, radius, color, text, speed) {
+class Circle{
+    constructor(x,y,r){
         this.posX = x;
         this.posY = y;
-        this.radius = radius;
-        this.baseColor = color;
-        this.color = color;
-        this.text = text;
-        this.speed = speed;
-
-        this.dx = (Math.random() - 0.5) * speed * 2;
-        this.dy = (Math.random() - 0.5) * speed * 2;
+        this.radius = r;
+        this.dx = Math.random()*4-2;
+        this.dy = Math.random()*4-2;
+        this.color = "#7c3aed";
     }
 
-    draw(context) {
-        context.beginPath();
-
-        context.strokeStyle = this.color;
-        context.lineWidth = 2;
-
-        context.arc(this.posX, this.posY, this.radius, 0, Math.PI * 2);
-        context.stroke();
-
-        context.fillStyle = "black";
-        context.textAlign = "center";
-        context.textBaseline = "middle";
-        context.font = "16px Arial";
-        context.fillText(this.text, this.posX, this.posY);
-
-        context.closePath();
+    draw(){
+        ctx.beginPath();
+        ctx.fillStyle = this.color;
+        ctx.arc(this.posX,this.posY,this.radius,0,Math.PI*2);
+        ctx.fill();
     }
 
-    update(context) {
-        // Rebote con bordes
-        if ((this.posX + this.radius) > window_width || (this.posX - this.radius) < 0) {
-            this.dx = -this.dx;
-        }
-
-        if ((this.posY + this.radius) > window_height || (this.posY - this.radius) < 0) {
-            this.dy = -this.dy;
-        }
+    move(){
+        if (this.posX + this.radius > 300 || this.posX - this.radius < 0) this.dx *= -1;
+        if (this.posY + this.radius > 300 || this.posY - this.radius < 0) this.dy *= -1;
 
         this.posX += this.dx;
         this.posY += this.dy;
-
-        this.draw(context);
     }
 }
 
-// Crear N círculos
-const N = 10;
 let circles = [];
 
-for (let i = 0; i < N; i++) {
-    let radius = Math.random() * 30 + 20;
-    let x = Math.random() * (window_width - radius * 2) + radius;
-    let y = Math.random() * (window_height - radius * 2) + radius;
-
-    circles.push(new Circle(x, y, radius, "blue", i + 1, 3));
+for(let i=0;i<8;i++){
+    circles.push(new Circle(Math.random()*300,Math.random()*300,12));
 }
 
-// Detectar colisiones
-function detectCollisions() {
-    // Reiniciar colores
-    circles.forEach(c => c.color = c.baseColor);
+function bounce(){
 
-    for (let i = 0; i < circles.length; i++) {
-        for (let j = i + 1; j < circles.length; j++) {
+    for(let i=0;i<circles.length;i++){
+        for(let j=i+1;j<circles.length;j++){
 
-            let dx = circles[i].posX - circles[j].posX;
-            let dy = circles[i].posY - circles[j].posY;
+            let c1 = circles[i];
+            let c2 = circles[j];
 
-            let distance = Math.sqrt(dx * dx + dy * dy);
+            let dx = c2.posX - c1.posX;
+            let dy = c2.posY - c1.posY;
 
-            let sumRadius = circles[i].radius + circles[j].radius;
+            let dist = Math.sqrt(dx*dx+dy*dy);
 
-            // Colisión (tocan o traslapan)
-            if (distance <= sumRadius) {
-                circles[i].color = randomColor();
-                circles[j].color = randomColor();
+            if(dist < c1.radius + c2.radius){
+
+                c1.color = "#f97316";
+                c2.color = "#f97316";
+
+                let tempX = c1.dx;
+                let tempY = c1.dy;
+
+                c1.dx = c2.dx;
+                c1.dy = c2.dy;
+
+                c2.dx = tempX;
+                c2.dy = tempY;
             }
         }
     }
 }
 
-// Animación
-function updateCircle() {
-    requestAnimationFrame(updateCircle);
+function animate(){
+    ctx.clearRect(0,0,300,300);
 
-    ctx.clearRect(0, 0, window_width, window_height);
-
-    detectCollisions();
-
-    circles.forEach(circle => {
-        circle.update(ctx);
+    circles.forEach(c => {
+        c.move();
+        c.color = "#7c3aed";
     });
+
+    bounce();
+
+    circles.forEach(c => c.draw());
+
+    requestAnimationFrame(animate);
 }
 
-updateCircle();
+animate();
+
+});

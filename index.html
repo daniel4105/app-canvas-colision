@@ -1,12 +1,64 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Demo Colisión 2D</title>
+  <meta charset="UTF-8">
+  <title>Simulaciones Canvas</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial;
+      background: #111;
+      color: white;
+      text-align: center;
+    }
+
+    .container {
+      display: flex;
+      gap: 20px;
+      padding: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    canvas {
+      background: #1f1f1f;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+
+    h2 {
+      margin-bottom: 5px;
+    }
+  </style>
 </head>
+
 <body>
-    <canvas id="canvas"></canvas>
-    <script src="./assets/js/main_colision.js"></script>
+
+  <h1>Simulaciones de Círculos</h1>
+
+  <div class="container">
+    <div>
+      <h2>Movimiento</h2>
+      <canvas id="canvasMove"></canvas>
+    </div>
+
+    <div>
+      <h2>Colisión</h2>
+      <canvas id="canvasCollision"></canvas>
+    </div>
+
+    <div>
+      <h2>Rebote</h2>
+      <canvas id="canvasBounce"></canvas>
+    </div>
+  </div>
+
+  <script src="./assets/js/main.js"></script>
+  <script src="./assets/js/main_colision.js"></script>
+  <script src="./assets/js/main_rebote.js"></script>
+
+  
+
 </body>
 </html>
