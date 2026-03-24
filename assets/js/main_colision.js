@@ -5,14 +5,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     canvas.width = 300;
     canvas.height = 300;
-    canvas.style.background = "#ecfdf5";
+    canvas.style.background = "#000000";
 
     const range = document.getElementById("rangeCircles");
     const input = document.getElementById("inputCircles");
     const label = document.getElementById("valueCircles");
 
     function randColor() {
-        return "#ef4444";
+        return "#ff0000";
     }
 
     class Circle {
@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
             this.radius = r;
             this.dx = Math.random() * 4 - 2;
             this.dy = Math.random() * 4 - 2;
-            this.base = "#10b981";
+            this.base = "#ffffff";
             this.color = this.base;
         }
 

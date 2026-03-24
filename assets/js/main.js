@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     canvas.width = 300;
     canvas.height = 300;
-    canvas.style.background = "#e0f2fe";
+    canvas.style.background = "#000000";
 
     const range = document.getElementById("rangeCircles");
     const input = document.getElementById("inputCircles");
@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         draw() {
             ctx.beginPath();
-            ctx.fillStyle = "#2563eb";
+            ctx.fillStyle = "#ee0606";
             ctx.arc(this.posX, this.posY, this.radius, 0, Math.PI * 2);
             ctx.fill();
         }

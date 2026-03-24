@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     canvas.width = 300;
     canvas.height = 300;
-    canvas.style.background = "#faf5ff";
+    canvas.style.background = "#000000";
 
     const range = document.getElementById("rangeCircles");
     const input = document.getElementById("inputCircles");
@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
             this.radius = r;
             this.dx = Math.random() * 4 - 2;
             this.dy = Math.random() * 4 - 2;
-            this.color = "#7c3aed";
+            this.color = "#ab1111";
         }
 
         draw() {
@@ -65,8 +65,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 if (dist < c1.radius + c2.radius) {
 
-                    c1.color = "#f97316";
-                    c2.color = "#f97316";
+                    c1.color = "#ffffff";
+                    c2.color = "#ffffff";
 
                     let tempX = c1.dx;
                     let tempY = c1.dy;
@@ -86,7 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         circles.forEach(c => {
             c.move();
-            c.color = "#7c3aed";
+            c.color = "#a70b0b";
         });
 
         bounce();
